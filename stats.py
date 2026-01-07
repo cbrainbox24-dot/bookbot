@@ -23,4 +23,20 @@ def get_dict_list(char_times):
     dict_list.sort(reverse = True, key = sort_on)
     return dict_list
 
-
+def get_top_words(text, limit=20):
+    words = text.split()
+    word_counts = {}
+    for word in words:
+        cleaned = word.lower()
+        cleaned = cleaned.strip('.,;:"!?()[]{}\'"-')
+        if not cleaned:
+            continue
+        if cleaned in word_counts:
+            word_counts[cleaned] += 1    
+        else:
+            word_counts[cleaned] = 1 
+    word_list = []
+    for w in word_counts:
+        word_list.append({"word": w, "num": word_counts[w]})
+    word_list.sort(key=sort_on, reverse=True)
+    return word_list[:limit]
